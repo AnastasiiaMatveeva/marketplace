@@ -1,6 +1,5 @@
 plugins {
-    alias(libs.plugins.kotlin.jvm) apply false
-    alias(libs.plugins.kotlin.multiplatform) apply false
+    kotlin("jvm") apply false
 }
 
 group = "com.otus.otuskotlin.marketplace"
@@ -17,4 +16,3 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 }
-
