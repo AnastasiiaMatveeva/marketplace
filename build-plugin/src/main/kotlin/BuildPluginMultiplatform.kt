@@ -1,4 +1,4 @@
-package ru.otus.otuskotlin.marketplace.plugin
+package ru.otus.otuskotlin.aiassistant.plugin
 
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin

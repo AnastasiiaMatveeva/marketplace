@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
 
-group = "com.otus.otuskotlin.marketplace"
+group = "ru.otus.otuskotlin.aiassistant"
 version = "0.0.1"
 
 repositories {
