@@ -1,21 +1,18 @@
-package ru.otus.otuskotlin.marketplace.api.v1
-
-import ru.otus.otuskotlin.marketplace.api.v1.models.*
+import ru.otus.otuskotlin.aiassistant.api.v1.models.*
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class RequestV1SerializationTest {
-    private val request = AdCreateRequest(
-        debug = AdDebug(
-            mode = AdRequestDebugMode.STUB,
-            stub = AdRequestDebugStubs.BAD_TITLE
+    private val request = ModelCreateRequest(
+        debug = ModelDebug(
+            mode = ModelRequestDebugMode.STUB,
+            stub = ModelRequestDebugStubs.BAD_TITLE
         ),
-        ad = AdCreateObject(
-            title = "ad title",
-            description = "ad description",
-            adType = DealSide.DEMAND,
-            visibility = AdVisibility.PUBLIC,
+        model = ModelCreateObject(
+            title = "Model title",
+            description = "Model description",
+            visibility = ModelVisibility.PUBLIC,
         )
     )
 
@@ -23,7 +20,7 @@ class RequestV1SerializationTest {
     fun serialize() {
         val json = apiV1Mapper.writeValueAsString(request)
 
-        assertContains(json, Regex("\"title\":\\s*\"ad title\""))
+        assertContains(json, Regex("\"title\":\\s*\"Model title\""))
         assertContains(json, Regex("\"mode\":\\s*\"stub\""))
         assertContains(json, Regex("\"stub\":\\s*\"badTitle\""))
         assertContains(json, Regex("\"requestType\":\\s*\"create\""))
@@ -32,7 +29,7 @@ class RequestV1SerializationTest {
     @Test
     fun deserialize() {
         val json = apiV1Mapper.writeValueAsString(request)
-        val obj = apiV1Mapper.readValue(json, IRequest::class.java) as AdCreateRequest
+        val obj = apiV1Mapper.readValue(json, IRequest::class.java) as ModelCreateRequest
 
         assertEquals(request, obj)
     }
@@ -40,10 +37,10 @@ class RequestV1SerializationTest {
     @Test
     fun deserializeNaked() {
         val jsonString = """
-            {"ad": null}
+            {"Model": null}
         """.trimIndent()
-        val obj = apiV1Mapper.readValue(jsonString, AdCreateRequest::class.java)
+        val obj = apiV1Mapper.readValue(jsonString, ModelCreateRequest::class.java)
 
-        assertEquals(null, obj.ad)
+        assertEquals(null, obj.model)
     }
 }

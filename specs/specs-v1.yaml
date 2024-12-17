@@ -176,13 +176,16 @@ components:
 
     UserId:
       type: string
-      description: Идентификатор суррогатной модели
+      description: Идентификатор пользователя
     ModelId:
       type: string
       description: Идентификатор суррогатной модели
     ModelLock:
       type: string
       description: Версия оптимистичной блокировки
+    ParamId:
+      type: string
+      description: Идентификатор параметра
 
     BaseModel:
       type: object
@@ -206,13 +209,13 @@ components:
       type: object
       properties:
         param_type:
-          $ref: '#/components/schemas/ParamType'
+          $ref: '#/components/schemas/ModelParamType'
         line:
-          type: int
+          type: integer
           description: Номер строки в макросе, в которой находится параметр
         position:
-          type: int
-          description: Номер позции параметра в строке в макросе
+          type: integer
+          description: Номер позиции параметра в строке в макросе
         separator:
           type: string
           description: Разделитель символов в строке
@@ -220,11 +223,11 @@ components:
           type: string
           description: Имя параметра
 
-    ParamType:
+    ModelParamType:
       type: string
       description: 'Тип переменной'
       enum:
-        - continious
+        - continuous
         - discrete
 
     ModelVisibility:

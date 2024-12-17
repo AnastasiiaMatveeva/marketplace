@@ -26,4 +26,4 @@ plugins {
 
 include(":ok-aiassistant-api-v1-jackson")
 include(":ok-aiassistant-api-v1-mappers")
-include(":ok-marketplace-common")
+include(":ok-aiassistant-common")
