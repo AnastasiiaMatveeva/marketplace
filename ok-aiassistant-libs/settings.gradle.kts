@@ -1,4 +1,4 @@
-rootProject.name = "backend"
+rootProject.name = "ok-aiassistant-libs"
 
 dependencyResolutionManagement {
     versionCatalogs {
@@ -24,7 +24,5 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
 
-include(":ok-aiassistant-api-v1-jackson")
-include(":ok-aiassistant-api-v1-mappers")
-include(":ok-aiassistant-api-log1")
-include(":ok-aiassistant-common")
+include(":ok-aiassistant-lib-logging-common")
+include(":ok-aiassistant-lib-logging-logback")

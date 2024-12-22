@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform) apply false
 }
 
-group = "ru.otus.otuskotlin.aiassistant"
+group = "ru.otus.otuskotlin.aiassistant.libs"
 version = "0.0.1"
 
 allprojects {
@@ -20,8 +20,6 @@ subprojects {
 ext {
     val specDir = layout.projectDirectory.dir("../specs")
     set("spec-v1", specDir.file("specs-v1.yaml").toString())
-    set("spec-log1", specDir.file("specs-log1.yaml").toString())
-
 }
 
 tasks {
