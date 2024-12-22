@@ -1,0 +1,556 @@
+openapi: 3.0.0
+info:
+  title: "AI Assistant ${VERSION_APP}"
+  description: generates surrogate models for engineers to predict results and optimize processes
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: surrogate_model
+    description: Cуррогатная модель
+paths:
+  /model/create:
+    post:
+      tags:
+        - surrogate_model
+      summary: Create model
+      operationId: modelCreate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelCreateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelCreateResponse'
+  /model/read:
+    post:
+      tags:
+        - surrogate_model
+      summary: read model
+      operationId: modelRead
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelReadRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelReadResponse'
+  /model/update:
+    post:
+      tags:
+        - surrogate_model
+      summary: Update model
+      operationId: modelUpdate
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelUpdateRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelUpdateResponse'
+  /model/delete:
+    post:
+      tags:
+        - surrogate_model
+      summary: Delete model
+      operationId: modelDelete
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelDeleteRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelDeleteResponse'
+  /model/search:
+    post:
+      tags:
+        - surrogate_model
+      summary: Search model
+      operationId: modelSearch
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelSearchRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelSearchResponse'
+  /model/train:
+    post:
+      tags:
+        - surrogate_model
+      summary: Train model
+      operationId: modelTrain
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelTrainRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelTrainResponse'
+  /model/predict:
+    post:
+      tags:
+        - surrogate_model
+      summary: Predict model
+      operationId: modelPredict
+      requestBody:
+        description: Request body
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ModelPredictRequest'
+        required: true
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModelPredictResponse'
+components:
+  schemas:
+    IRequest:
+      type: object
+      description: Базовый интерфейс для всех запросов
+      properties:
+        requestType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+      discriminator:
+        propertyName: requestType
+        mapping:
+          create: '#/components/schemas/ModelCreateRequest'
+          read:   '#/components/schemas/ModelReadRequest'
+          update: '#/components/schemas/ModelUpdateRequest'
+          delete: '#/components/schemas/ModelDeleteRequest'
+          search: '#/components/schemas/ModelSearchRequest'
+          train: '#/components/schemas/ModelTrainRequest'
+          predict: '#/components/schemas/ModelPredictRequest'
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        group:
+          type: string
+        field:
+          type: string
+        message:
+          type: string
+
+    ResponseResult:
+      type: string
+      enum:
+        - success
+        - error
+
+    IResponse:
+      type: object
+      description: Базовый интерфейс для всех ответов
+      properties:
+        responseType:
+          type: string
+          description: Поле-дескриминатор для вычисления типа запроса
+          example: create
+        result:
+          $ref: '#/components/schemas/ResponseResult'
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+
+      discriminator:
+        propertyName: responseType
+        mapping:
+          create: '#/components/schemas/ModelCreateResponse'
+          read:   '#/components/schemas/ModelReadResponse'
+          update: '#/components/schemas/ModelUpdateResponse'
+          delete: '#/components/schemas/ModelDeleteResponse'
+          search: '#/components/schemas/ModelSearchResponse'
+          train: '#/components/schemas/ModelTrainResponse'
+          predict: '#/components/schemas/ModelPredictResponse'
+
+    UserId:
+      type: string
+      description: Идентификатор пользователя
+    ModelId:
+      type: string
+      description: Идентификатор суррогатной модели
+    ModelLock:
+      type: string
+      description: Версия оптимистичной блокировки
+
+
+    BaseModel:
+      type: object
+      description: Объект описывает свойства, одинаковые для create и update
+      properties:
+        title:
+          type: string
+          description: Название суррогатной модели
+        description:
+          type: string
+          description: Описание суррогатной модели
+        params:
+          type: array
+          description: Входные параметры и их позиции
+          items:
+            $ref: '#/components/schemas/ModelParam'
+        solver_path:
+          type: string
+          description: Путь к внешнему КЭ решателю
+        script_path:
+          type: string
+          description: Путь к входному макросу для запуска расчета
+        visibility:
+          $ref: '#/components/schemas/ModelVisibility'
+
+    ModelParam:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Имя параметра
+        param_type:
+          $ref: '#/components/schemas/ModelParamType'
+        line:
+          type: integer
+          description: Номер строки в макросе, в которой находится параметр
+        position:
+          type: integer
+          description: Номер позиции параметра в строке в макросе
+        separator:
+          type: string
+          description: Разделитель символов в строке
+        bounds:
+          $ref: '#/components/schemas/Bounds'
+
+    Bounds:
+      type: object
+      description: Границы варьирования параметра
+      properties:
+        min:
+          type: double
+          description: Минимальное значение параметра
+        max:
+          type: double
+          description: Максимальное значение параметра
+      required:
+        - min
+        - max
+
+    ModelParamType:
+      type: string
+      description: 'Тип переменной'
+      enum:
+        - continuous
+        - discrete
+
+    ModelVisibility:
+      type: string
+      description: 'Тип видимости объявления. Возможные значения: видит только владелец, только зарегистрированный в системе пользователь, видимо всем'
+      enum:
+        - ownerOnly
+        - registeredOnly
+        - public
+
+    ModelCreateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseModel'
+
+    ModelCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelCreateObject'
+
+    ModelReadObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+
+    ModelReadRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelReadObject'
+
+    ModelUpdateObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseModel'
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+            lock:
+              $ref: '#/components/schemas/ModelLock'
+
+    ModelUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelUpdateObject'
+
+    ModelDeleteObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+            lock:
+              $ref: '#/components/schemas/ModelLock'
+
+    ModelDeleteRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelDeleteObject'
+
+    ModelSearchFilter:
+      type: object
+      description: Набор фильтров для поиска
+      properties:
+        searchString:
+          type: string
+          description: Поисковая строка
+
+    ModelSearchRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            ModelFilter:
+              $ref: '#/components/schemas/ModelSearchFilter'
+
+    ModelTrainObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+
+    ModelTrainRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelTrainObject'
+
+    ModelPredictObject:
+      allOf:
+        - type: object
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+            features:
+              type: array
+              items:
+                type: number
+                format: double
+
+    ModelPredictRequest:
+      allOf:
+        - $ref: '#/components/schemas/IRequest'
+        - $ref: '#/components/schemas/ModelRequestDebug'
+        - type: object
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelPredictObject'
+
+    ModelResponseObject:
+      allOf:
+        - $ref: '#/components/schemas/BaseModel'
+        - type: object
+          description: Объект, который возвращается в ответе бэкенда
+          properties:
+            id:
+              $ref: '#/components/schemas/ModelId'
+            ownerId:
+              $ref: '#/components/schemas/UserId'
+            params:
+              type: array
+              description: Входные параметры и их позиции
+              items:
+                $ref: '#/components/schemas/ModelParam'
+            features:
+              type: array
+              items:
+                type: number
+                format: double
+              description: Входные параметры для предсказания
+            results:
+              type: array
+              items:
+                type: number
+                format: double
+              description: Прогнозы модели
+            lock:
+              $ref: '#/components/schemas/ModelLock'
+            permissions:
+              type: array
+              uniqueItems: true
+              items:
+                $ref: '#/components/schemas/ModelPermissions'
+
+    ModelPermissions:
+      type: string
+      description: Доступы для клиента для операций над объявлением
+      enum:
+        - read
+        - update
+        - delete
+        - makeVisiblePublic
+        - makeVisibleOwn
+        - makeVisibleGroup
+
+    ModelResponseSingle:
+      allOf:
+        - type: object
+          description: Ответ с одним объектом объявления
+          properties:
+            Model:
+              $ref: '#/components/schemas/ModelResponseObject'
+
+    ModelResponseMulti:
+      allOf:
+        - type: object
+          description: Список найденных объектов
+          properties:
+            Models:
+              type: array
+              items:
+                $ref: '#/components/schemas/ModelResponseObject'
+
+    ModelCreateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    ModelReadResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    ModelUpdateResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    ModelDeleteResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    ModelSearchResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseMulti'
+
+    ModelTrainResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    ModelPredictResponse:
+      allOf:
+        - $ref: '#/components/schemas/IResponse'
+        - $ref: '#/components/schemas/ModelResponseSingle'
+
+    # STUBS ======================
+    ModelRequestDebugMode:
+      type: string
+      enum:
+        - prod
+        - test
+        - stub
+
+    ModelRequestDebug:
+      type: object
+      properties:
+        debug:
+          $ref: '#/components/schemas/ModelDebug'
+
+    ModelDebug:
+      type: object
+      properties:
+        mode:
+          $ref: '#/components/schemas/ModelRequestDebugMode'
+        stub:
+          $ref: '#/components/schemas/ModelRequestDebugStubs'
+
+    ModelRequestDebugStubs:
+      type: string
+      description: Перечисления всех стабов
+      enum:
+        - success
+        - notFound
+        - badId
+        - badTitle
+        - badDescription
+        - badVisibility
+        - cannotDelete
+        - badSearchString
