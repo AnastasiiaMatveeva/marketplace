@@ -3,6 +3,8 @@ import org.junit.Test
 import stubs.AIStubs
 import ru.otus.otuskotlin.aiassistant.api.v1.models.*
 import kotlin.test.assertEquals
+import ru.otus.otuskotlin.aiassistant.mappers.v1.fromTransport
+import ru.otus.otuskotlin.aiassistant.mappers.v1.toTransportModel
 
 class MapperReadTest {
     @Test

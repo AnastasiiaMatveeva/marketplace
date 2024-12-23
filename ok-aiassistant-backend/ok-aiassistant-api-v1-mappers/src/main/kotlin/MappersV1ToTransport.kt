@@ -1,6 +1,9 @@
+package ru.otus.otuskotlin.aiassistant.mappers.v1
+
 import models.*
 import ru.otus.otuskotlin.aiassistant.api.v1.models.*
-
+import models.exceptions.UnknownCommand
+import AppContext
 
 fun AppContext.toTransportModel(): IResponse = when (val cmd = command) {
     AICommand.CREATE -> toTransportCreate()

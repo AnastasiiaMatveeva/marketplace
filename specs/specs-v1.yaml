@@ -9,13 +9,13 @@ info:
 servers:
   - url: http://localhost:8080/v1
 tags:
-  - name: surrogate_model
+  - name: model
     description: Cуррогатная модель
 paths:
   /model/create:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Create model
       operationId: modelCreate
       requestBody:
@@ -35,7 +35,7 @@ paths:
   /model/read:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: read model
       operationId: modelRead
       requestBody:
@@ -55,7 +55,7 @@ paths:
   /model/update:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Update model
       operationId: modelUpdate
       requestBody:
@@ -75,7 +75,7 @@ paths:
   /model/delete:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Delete model
       operationId: modelDelete
       requestBody:
@@ -95,7 +95,7 @@ paths:
   /model/search:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Search model
       operationId: modelSearch
       requestBody:
@@ -115,7 +115,7 @@ paths:
   /model/train:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Train model
       operationId: modelTrain
       requestBody:
@@ -135,7 +135,7 @@ paths:
   /model/predict:
     post:
       tags:
-        - surrogate_model
+        - model
       summary: Predict model
       operationId: modelPredict
       requestBody:
@@ -277,14 +277,14 @@ components:
       description: Границы варьирования параметра
       properties:
         min:
-          type: double
+          type: number
+          format: double
           description: Минимальное значение параметра
         max:
-          type: double
+          type: number
+          format: double
           description: Максимальное значение параметра
-      required:
-        - min
-        - max
+
 
     ModelParamType:
       type: string

@@ -1,8 +1,11 @@
-import exceptions.UnknownRequestClass
+package ru.otus.otuskotlin.aiassistant.mappers.v1
+
+import AppContext
 import models.*
 import models.AIParamType
 import stubs.AIStubs
 import ru.otus.otuskotlin.aiassistant.api.v1.models.*
+import exceptions.UnknownRequestClass
 
 
 fun AppContext.fromTransport(request: IRequest) = when (request) {

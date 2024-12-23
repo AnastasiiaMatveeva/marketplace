@@ -1,3 +1,5 @@
+package ru.otus.otuskotlin.aiassistant.api.v1
+
 import com.fasterxml.jackson.databind.MapperFeature
 import com.fasterxml.jackson.databind.json.JsonMapper
 import ru.otus.otuskotlin.aiassistant.api.v1.models.IRequest

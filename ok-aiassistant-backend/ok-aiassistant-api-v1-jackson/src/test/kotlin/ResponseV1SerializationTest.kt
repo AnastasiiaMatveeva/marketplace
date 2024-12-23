@@ -2,6 +2,7 @@ import ru.otus.otuskotlin.aiassistant.api.v1.models.*
 import kotlin.test.Test
 import kotlin.test.assertContains
 import kotlin.test.assertEquals
+import ru.otus.otuskotlin.aiassistant.api.v1.apiV1Mapper
 
 class ResponseV1SerializationTest {
     private val response = ModelCreateResponse(

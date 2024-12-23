@@ -12,6 +12,8 @@ kotlin {
                 implementation(kotlin("stdlib-common"))
 
                 api(libs.kotlinx.datetime)
+                api("ru.otus.otuskotlin.aiassistant.libs:ok-aiassistant-lib-logging-common")
+
             }
         }
         val commonTest by getting {
