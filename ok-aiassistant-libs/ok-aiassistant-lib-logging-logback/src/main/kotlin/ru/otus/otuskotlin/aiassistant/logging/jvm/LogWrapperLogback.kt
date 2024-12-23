@@ -6,7 +6,7 @@ import org.slf4j.Marker
 import org.slf4j.event.KeyValuePair
 import org.slf4j.event.Level
 import org.slf4j.event.LoggingEvent
-import ru.otus.otuskotlin.aiassistant.logging.common.IMpLogWrapper
+import ru.otus.otuskotlin.aiassistant.logging.common.ILogWrapper
 import ru.otus.otuskotlin.aiassistant.logging.common.LogLevel
 import java.time.Instant
 
@@ -20,7 +20,7 @@ class LogWrapperLogback(
      * логера о входе и выходе из функции.
      */
     override val loggerId: String = logger.name,
-) : IMpLogWrapper {
+) : ILogWrapper {
     /**
      * Основная функция для логирования
      */

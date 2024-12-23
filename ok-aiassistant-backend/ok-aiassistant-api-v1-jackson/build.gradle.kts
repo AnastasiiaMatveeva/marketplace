@@ -22,6 +22,7 @@ openApiGenerate {
     invokerPackage.set("$openapiGroup.invoker")
 //    inputSpec.set("$specDir/specs-ad-v1.yaml")
     inputSpec.set(rootProject.ext["spec-v1"] as String)
+    inputSpec.set(rootProject.ext["spec-v2"] as String)
 
     /**
      * Здесь указываем, что нам нужны только модели, все остальное не нужно

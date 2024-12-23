@@ -1,3 +1,5 @@
+package models.exceptions
+
 import models.AICommand
 
 

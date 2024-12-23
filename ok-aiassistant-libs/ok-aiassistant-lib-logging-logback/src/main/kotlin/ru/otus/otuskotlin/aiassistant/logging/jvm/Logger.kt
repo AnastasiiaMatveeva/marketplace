@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.aiassistant.logging.jvm
 
 import ch.qos.logback.classic.Logger
 import org.slf4j.LoggerFactory
-import ru.otus.otuskotlin.aiassistant.logging.common.IMpLogWrapper
+import ru.otus.otuskotlin.aiassistant.logging.common.ILogWrapper
 import kotlin.reflect.KClass
 
 /**
@@ -10,11 +10,11 @@ import kotlin.reflect.KClass
  *
  * @param logger Logback instance from [LoggerFactory.getLogger()]
  */
-fun mpLoggerLogback(logger: Logger): IMpLogWrapper = MpLogWrapperLogback(
+fun mpLoggerLogback(logger: Logger): ILogWrapper = LogWrapperLogback(
     logger = logger,
     loggerId = logger.name,
 )
 
-fun mpLoggerLogback(clazz: KClass<*>): IMpLogWrapper = mpLoggerLogback(LoggerFactory.getLogger(clazz.java) as Logger)
+fun mpLoggerLogback(clazz: KClass<*>): ILogWrapper = mpLoggerLogback(LoggerFactory.getLogger(clazz.java) as Logger)
 @Suppress("unused")
-fun mpLoggerLogback(loggerId: String): IMpLogWrapper = mpLoggerLogback(LoggerFactory.getLogger(loggerId) as Logger)
+fun mpLoggerLogback(loggerId: String): ILogWrapper = mpLoggerLogback(LoggerFactory.getLogger(loggerId) as Logger)
