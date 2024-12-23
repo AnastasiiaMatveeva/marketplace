@@ -7,13 +7,13 @@ import kotlin.test.assertContains
 import kotlin.test.assertEquals
 
 class RequestV2SerializationTest {
-    private val request = ModelCreateRequest(
+    private val request: IRequest = ModelCreateRequest(
         debug = ModelDebug(
             mode = ModelRequestDebugMode.STUB,
             stub = ModelRequestDebugStubs.BAD_TITLE
         ),
         model = ModelCreateObject(
-            title = "title",
+            title = "model title",
             description = "description",
             params = listOf(
                 ModelParam(
@@ -51,7 +51,7 @@ class RequestV2SerializationTest {
 
         println(json)
 
-        assertContains(json, Regex("\"title\":\\s*\"ad title\""))
+        assertContains(json, Regex("\"title\":\\s*\"model title\""))
         assertContains(json, Regex("\"mode\":\\s*\"stub\""))
         assertContains(json, Regex("\"stub\":\\s*\"badTitle\""))
         assertContains(json, Regex("\"requestType\":\\s*\"create\""))

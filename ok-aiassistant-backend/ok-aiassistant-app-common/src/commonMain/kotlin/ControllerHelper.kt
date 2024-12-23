@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.aiassistant.app.common
 
 import kotlinx.datetime.Clock
 import ru.otus.otuskotlin.aiassistant.api.log1.mapper.toLog
-import ru.otus.otuskotlin.aiassistant.common.helpers.asAIError
+import ru.otus.otuskotlin.aiassistant.common.helpers.asError
 import AppContext
 import models.AIState
 import kotlin.reflect.KClass
@@ -38,7 +38,7 @@ suspend inline fun <T> IAppSettings.controllerHelper(
             data = ctx.toLog(logId)
         )
         ctx.state = AIState.FAILING
-        ctx.errors.add(e.asAIError())
+        ctx.errors.add(e.asError())
         processor.exec(ctx)
         ctx.toResponse()
     }

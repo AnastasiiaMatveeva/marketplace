@@ -284,9 +284,7 @@ components:
           type: number
           format: double
           description: Максимальное значение параметра
-      required:
-        - min
-        - max
+
 
     ModelParamType:
       type: string

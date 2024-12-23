@@ -1,4 +1,5 @@
 package ru.otus.otuskotlin.aiassistant.biz
+
 import ru.otus.otuskotlin.aiassistant.stubs.ModelStub
 import ru.otus.otuskotlin.aiassistant.common.CorSettings
 import models.AIState

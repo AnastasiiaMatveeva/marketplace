@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package ru.otus.otuskotlin.aiassistant.api.v2
 
 import kotlinx.serialization.json.Json

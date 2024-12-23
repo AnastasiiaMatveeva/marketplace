@@ -36,7 +36,7 @@ private fun AIError.toLog() = ErrorLogSchema(
     level = level.name,
 )
 
-private fun AIModel.toLog() = ModelLog(
+private fun AIModel.toLog(): ModelLog = ModelLog(
     id = id.takeIf { it != AIModelId.NONE }?.asString(),
     title = title.takeIf { it.isNotBlank() },
     description = description.takeIf { it.isNotBlank() },

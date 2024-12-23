@@ -2,7 +2,7 @@ package ru.otus.otuskotlin.aiassistant.common.helpers
 
 import models.AIError
 
-fun Throwable.asAIError(
+fun Throwable.asError(
     code: String = "unknown",
     group: String = "exceptions",
     message: String = this.message ?: "",

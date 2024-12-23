@@ -15,7 +15,8 @@ object ModelStubTest {
                 AIModelPermissionClient.MAKE_VISIBLE_GROUP,
                 AIModelPermissionClient.MAKE_VISIBLE_OWNER,
             ),
-            title = "",
+            title = "task",
+            description = "decription task",
             scriptPath = "путь/к/макросу",
             solverPath = "путь/к/солверу",
             modelParams = mutableListOf(
