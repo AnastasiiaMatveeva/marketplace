@@ -212,7 +212,7 @@ internal class RabbitMqTest {
                 title = "Обтекание крыла",
                 scriptPath = "путь/к/макросу",
                 solverPath = "путь/к/солверу",
-                params = listOf(
+                params = mutableListOf(
                     ModelParam(
                         paramType = ModelParamType.DISCRETE,
                         line = 1,

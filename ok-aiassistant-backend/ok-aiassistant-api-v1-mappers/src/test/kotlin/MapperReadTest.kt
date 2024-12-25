@@ -44,7 +44,7 @@ class MapperReadTest {
             modelResponse = AIModel(
                 title = "title",
                 description = "description",
-                modelParams = listOf(
+                modelParams = mutableListOf(
                     AIModelParam(
                         paramType = AIParamType.DISCRETE,
                         bounds = ParamBounds(

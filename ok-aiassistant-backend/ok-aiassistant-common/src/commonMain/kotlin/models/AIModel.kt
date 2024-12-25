@@ -4,7 +4,7 @@ data class AIModel(
     var id: AIModelId = AIModelId.NONE,
     var title: String = "",
     var description: String = "",
-    var modelParams: List<AIModelParam> = emptyList(),
+    var modelParams: MutableList<AIModelParam> = mutableListOf(),
     var solverPath: String = "",
     var scriptPath: String = "",
     var features: Array<Double> = emptyArray(),
@@ -14,21 +14,31 @@ data class AIModel(
     val permissionsClient: MutableSet<AIModelPermissionClient> = mutableSetOf(),
     var lock: AIModelLock = AIModelLock.NONE,
 
-//    var materials: Map<Material, Double> = mapOf(),
 ) {
-//    fun getMaterialsUsage(): Map<Material, Double> {
-//        val result = mutableMapOf<Material, Double>()
-//        materials.forEach { (material, quantity) ->
-//            val currentQuantity = result[material] ?: 0.0
-//            result[material] = currentQuantity + quantity
-//        }
-//        return result
-//    }
-
     fun isEmpty() = this == NONE
 
     companion object {
         private val NONE = AIModel()
+    }
+
+    fun deepCopy(): AIModel = copy()
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is AIModel) return false
+
+        return id == other.id &&
+                title == other.title &&
+                description == other.description &&
+                modelParams == other.modelParams &&
+                solverPath == other.solverPath &&
+                scriptPath == other.scriptPath &&
+                features.contentEquals(other.features) &&
+                results.contentEquals(other.results) &&
+                ownerId == other.ownerId &&
+                visibility == other.visibility &&
+                permissionsClient == other.permissionsClient &&
+                lock == other.lock
     }
 
 }

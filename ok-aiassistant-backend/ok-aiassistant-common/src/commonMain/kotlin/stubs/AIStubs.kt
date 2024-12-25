@@ -1,14 +1,22 @@
 package stubs
 
 enum class AIStubs {
-    NONE,
     SUCCESS,
+    NONE,
     NOT_FOUND,
     BAD_ID,
     BAD_TITLE,
+    BAD_USER_ID,
     BAD_DESCRIPTION,
+    BAD_SCRIPT_PATH,
+    BAD_PARAM_POSITION,
+    BAD_PARAM_BOUNDS,
+    BAD_PARAM_TYPE,
+    BAD_FEATURES,
     BAD_VISIBILITY,
+    BAD_PERMISSION,
     CANNOT_DELETE,
     BAD_SEARCH_STRING,
-    DB_ERROR,
+    BAD_LOCK,
+    DB_ERROR
 }

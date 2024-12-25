@@ -17,7 +17,7 @@ class MapperCreateTest {
             model = ModelCreateObject(
                 title = "title",
                 description = "description",
-                params = listOf(
+                params = mutableListOf(
                     ModelParam(
                         paramType = ModelParamType.DISCRETE,
                         bounds = Bounds(
@@ -86,7 +86,7 @@ class MapperCreateTest {
             modelResponse = AIModel(
                 title = "title",
                 description = "description",
-                modelParams = listOf(
+                modelParams = mutableListOf(
                     AIModelParam(
                         paramType = AIParamType.DISCRETE,
                         bounds = ParamBounds(
