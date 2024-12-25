@@ -24,5 +24,6 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
 
+include(":ok-aiassistant-lib-cor")
 include(":ok-aiassistant-lib-logging-common")
 include(":ok-aiassistant-lib-logging-logback")

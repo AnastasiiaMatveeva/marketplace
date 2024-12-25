@@ -9,7 +9,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-
+                implementation(libs.cor)
                 implementation(project(":ok-aiassistant-common"))
                 implementation(project(":ok-aiassistant-stubs"))
             }

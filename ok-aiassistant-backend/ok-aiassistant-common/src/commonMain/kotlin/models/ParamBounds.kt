@@ -6,7 +6,9 @@ data class ParamBounds (
 
 
 ) {
-    fun isEmpty() = this == NONE
+    fun isEmpty(): Boolean {
+        return min.isNaN() || max.isNaN()
+    }
 
     companion object {
         private val NONE = ParamBounds()

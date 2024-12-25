@@ -16,7 +16,7 @@ object ModelStubTest {
                 AIModelPermissionClient.MAKE_VISIBLE_OWNER,
             ),
             title = "task",
-            description = "decription task",
+            description = "description task",
             scriptPath = "путь/к/макросу",
             solverPath = "путь/к/солверу",
             modelParams = mutableListOf(
@@ -29,6 +29,7 @@ object ModelStubTest {
                     bounds = ParamBounds(250.0, 380.0),
                 )
             ),
+            features = arrayOf(1.0, 2.0, 3.0, 4.0, 5.0),
             visibility = AIVisibility.VISIBLE_TO_OWNER,
         )
 }

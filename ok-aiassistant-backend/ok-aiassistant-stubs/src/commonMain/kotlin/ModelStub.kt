@@ -10,18 +10,18 @@ object ModelStub {
     fun prepareResult(block: AIModel.() -> Unit): AIModel = get().apply(block)
 
     fun prepareSearchList(filter: String) = listOf(
-        model(MODEL_STUB_TEST,"d-666-01", filter),
-        model(MODEL_STUB_TEST,"d-666-02", filter),
-        model(MODEL_STUB_TEST,"d-666-03", filter),
-        model(MODEL_STUB_TEST,"d-666-04", filter),
-        model(MODEL_STUB_TEST,"d-666-05", filter),
-        model(MODEL_STUB_TEST,"d-666-06", filter),
+        model(MODEL_STUB_TEST,"1", filter),
+        model(MODEL_STUB_TEST,"2", filter),
+        model(MODEL_STUB_TEST,"3", filter),
+        model(MODEL_STUB_TEST,"4", filter),
+        model(MODEL_STUB_TEST,"5", filter),
+        model(MODEL_STUB_TEST,"6", filter),
     )
 
     private fun model(base: AIModel, id: String, filter: String) = base.copy(
         id = AIModelId(id),
         title = "$filter $id",
-        description = "desc $filter $id",
+        description = "description $filter $id",
     )
 
 }

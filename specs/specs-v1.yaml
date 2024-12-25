@@ -550,7 +550,16 @@ components:
         - notFound
         - badId
         - badTitle
+        - badUserId
         - badDescription
+        - badScriptPath
+        - badParamPosition
+        - badParamBounds
+        - badParamType
+        - badFeatures
         - badVisibility
+        - badPermission
         - cannotDelete
         - badSearchString
+        - badLock
+        - dbError

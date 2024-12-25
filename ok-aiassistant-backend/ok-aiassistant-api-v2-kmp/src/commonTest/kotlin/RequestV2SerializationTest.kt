@@ -15,7 +15,7 @@ class RequestV2SerializationTest {
         model = ModelCreateObject(
             title = "model title",
             description = "description",
-            params = listOf(
+            params = mutableListOf(
                 ModelParam(
                     paramType = ModelParamType.DISCRETE,
                     bounds = Bounds(

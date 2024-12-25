@@ -85,7 +85,7 @@ private fun AIModel.toTransportModel(): ModelResponseObject = ModelResponseObjec
     permissions = permissionsClient.toTransportModel(),
 )
 
-private fun List<AIModelParam>.toTransportParams(): List<ModelParam>? = this
+private fun MutableList<AIModelParam>.toTransportParams(): List<ModelParam>? = this
     .map { it.toTransportParam() }
     .toList()
     .takeIf { it.isNotEmpty() }

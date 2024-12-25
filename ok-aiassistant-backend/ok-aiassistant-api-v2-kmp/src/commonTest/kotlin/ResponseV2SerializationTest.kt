@@ -11,7 +11,7 @@ class ResponseV2SerializationTest {
         model = ModelResponseObject(
             title = "title",
             description = "description",
-            params = listOf(
+            params = mutableListOf(
                 ModelParam(
                     paramType = ModelParamType.DISCRETE,
                     bounds = Bounds(

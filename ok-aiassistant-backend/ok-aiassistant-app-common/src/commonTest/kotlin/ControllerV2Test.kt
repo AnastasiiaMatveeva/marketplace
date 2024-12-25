@@ -15,7 +15,7 @@ class ControllerV2Test {
         model = ModelCreateObject(
             title = "title",
             description = "description",
-            params = listOf(
+            params = mutableListOf(
                 ModelParam(
                     paramType = ModelParamType.DISCRETE,
                     bounds = Bounds(

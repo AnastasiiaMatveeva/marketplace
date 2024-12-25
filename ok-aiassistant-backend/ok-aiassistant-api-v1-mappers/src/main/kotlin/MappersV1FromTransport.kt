@@ -34,10 +34,19 @@ private fun ModelDebug?.transportToStubCase(): AIStubs = when (this?.stub) {
     ModelRequestDebugStubs.NOT_FOUND -> AIStubs.NOT_FOUND
     ModelRequestDebugStubs.BAD_ID -> AIStubs.BAD_ID
     ModelRequestDebugStubs.BAD_TITLE -> AIStubs.BAD_TITLE
+    ModelRequestDebugStubs.BAD_USER_ID -> AIStubs.BAD_USER_ID
     ModelRequestDebugStubs.BAD_DESCRIPTION -> AIStubs.BAD_DESCRIPTION
+    ModelRequestDebugStubs.BAD_SCRIPT_PATH -> AIStubs.BAD_SCRIPT_PATH
+    ModelRequestDebugStubs.BAD_PARAM_POSITION -> AIStubs.BAD_PARAM_POSITION
+    ModelRequestDebugStubs.BAD_PARAM_BOUNDS -> AIStubs.BAD_PARAM_BOUNDS
+    ModelRequestDebugStubs.BAD_PARAM_TYPE -> AIStubs.BAD_PARAM_TYPE
+    ModelRequestDebugStubs.BAD_FEATURES -> AIStubs.BAD_FEATURES
     ModelRequestDebugStubs.BAD_VISIBILITY -> AIStubs.BAD_VISIBILITY
+    ModelRequestDebugStubs.BAD_PERMISSION -> AIStubs.BAD_PERMISSION
     ModelRequestDebugStubs.CANNOT_DELETE -> AIStubs.CANNOT_DELETE
     ModelRequestDebugStubs.BAD_SEARCH_STRING -> AIStubs.BAD_SEARCH_STRING
+    ModelRequestDebugStubs.BAD_LOCK-> AIStubs.BAD_LOCK
+    ModelRequestDebugStubs.DB_ERROR-> AIStubs.DB_ERROR
     null -> AIStubs.NONE
 }
 
@@ -121,7 +130,7 @@ private fun ModelPredictObject.toInternal(): AIModel = AIModel(
 private fun ModelCreateObject.toInternal(): AIModel = AIModel(
     title = this.title ?: "",
     description = this.description ?: "",
-    modelParams = this.params?.map { it.toInternal() } ?: emptyList(),
+    modelParams = this.params?.map { it.toInternal() }?.toMutableList() ?: mutableListOf(),
     solverPath = this.solverPath ?: "",
     scriptPath = this.scriptPath ?: "",
     visibility = this.visibility.fromTransport(),
@@ -131,7 +140,7 @@ private fun ModelUpdateObject.toInternal(): AIModel = AIModel(
     id = this.id.toModelId(),
     title = this.title ?: "",
     description = this.description ?: "",
-    modelParams = this.params?.map { it.toInternal() } ?: emptyList(),
+    modelParams = this.params?.map { it.toInternal() }?.toMutableList() ?: mutableListOf(),
     solverPath = this.solverPath ?: "",
     scriptPath = this.scriptPath ?: "",
     visibility = this.visibility.fromTransport(),
