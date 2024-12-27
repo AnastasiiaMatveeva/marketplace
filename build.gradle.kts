@@ -18,3 +18,14 @@ subprojects {
     version = rootProject.version
 }
 
+//tasks {
+//    val buildImages: Task by creating {
+//        dependsOn(gradle.includedBuild("ok-aiassistant-be").task(":buildImages"))
+//    }
+//
+//    create("check") {
+//        group = "verification"
+////        dependsOn(gradle.includedBuild("ok-marketplace-be").task(":check"))
+//        dependsOn(buildImages)
+//    }
+//}

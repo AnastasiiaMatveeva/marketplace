@@ -115,8 +115,9 @@ private fun ModelDeleteObject?.toInternal(): AIModel = if (this != null) {
 }
 
 private fun ModelSearchFilter?.toInternal(): AIModelFilter = AIModelFilter(
-    searchString = this?.searchString ?: ""
-)
+    searchString = this?.searchString ?: "",
+    ownerId = this?.ownerId?.let { AIUserId(it) } ?: AIUserId.NONE,
+    )
 
 private fun ModelTrainObject.toInternal(): AIModel = AIModel(
     id = id.toModelId(),

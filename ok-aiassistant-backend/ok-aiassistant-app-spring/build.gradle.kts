@@ -35,10 +35,21 @@ dependencies {
     // biz
     implementation(project(":ok-aiassistant-biz"))
 
+    // DB
+    implementation(projects.okAiassistantRepoStubs)
+    implementation(projects.okAiassistantRepoInmemory)
+    implementation(projects.okAiassistantRepoPostgres)
+    testImplementation(projects.okAiassistantRepoStubs)
+    testImplementation(projects.okAiassistantRepoCommon)
+    testImplementation(projects.okAiassistantStubs)
+    testImplementation(projects.okAiassistantRepoPostgres)
+
+
     // tests
     testImplementation(kotlin("test-junit5"))
     testImplementation(libs.spring.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.spring.mockk)
 
     // stubs
     testImplementation(project(":ok-aiassistant-stubs"))

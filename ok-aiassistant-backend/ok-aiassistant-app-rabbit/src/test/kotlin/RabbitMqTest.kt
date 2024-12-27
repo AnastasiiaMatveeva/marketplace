@@ -209,7 +209,7 @@ internal class RabbitMqTest {
     private val modelAICreateV1 = with(ModelStub.get()) {
         ModelCreateRequest(
             model = ModelCreateObject(
-                title = "Обтекание крыла",
+                title = "task",
                 scriptPath = "путь/к/макросу",
                 solverPath = "путь/к/солверу",
                 params = mutableListOf(
@@ -234,7 +234,7 @@ internal class RabbitMqTest {
     private val modelAICreateV2 = with(ModelStub.get()) {
         ModelCreateRequestV2(
             model = ModelCreateObjectV2(
-                title = "Обтекание крыла",
+                title = "task",
                 scriptPath = "путь/к/макросу",
                 solverPath = "путь/к/солверу",
                 params = listOf(

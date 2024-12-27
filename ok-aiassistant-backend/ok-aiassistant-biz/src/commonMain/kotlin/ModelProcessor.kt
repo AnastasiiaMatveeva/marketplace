@@ -2,16 +2,18 @@ package ru.otus.otuskotlin.aiassistant.biz
 
 import ru.otus.otuskotlin.aiassistant.biz.general.initStatus
 import ru.otus.otuskotlin.aiassistant.biz.general.operation
-import ru.otus.otuskotlin.aiassistant.biz.general.stubs
+import ru.otus.otuskotlin.aiassistant.biz.repo.*
 import ru.otus.otuskotlin.aiassistant.biz.stubs.*
 import ru.otus.otuskotlin.aiassistant.biz.validation.*
 import ru.otus.otuskotlin.aiassistant.common.CorSettings
 import ru.otus.otuskotlin.aiassistant.cor.rootChain
+import ru.otus.otuskotlin.aiassistant.cor.chain
 import ru.otus.otuskotlin.aiassistant.cor.worker
 
 import models.AICommand
 import models.AIModelLock
 import models.AIModelId
+import models.AIState
 import AppContext
 
 class ModelProcessor(
@@ -20,6 +22,8 @@ class ModelProcessor(
     suspend fun exec(ctx: AppContext) = businessChain.exec(ctx.also { it.corSettings = corSettings })
     private val businessChain = rootChain {
         initStatus("Инициализация статуса")
+        initRepo("Инициализация репозитория")
+
         operation("Создание модели", AICommand.CREATE) {
             stubs("Обработка стабов") {
                 stubCreateSuccess("Имитация успешной обработки", corSettings)
@@ -50,6 +54,13 @@ class ModelProcessor(
 
                 finishModelValidation("Завершение проверок")
             }
+
+            chain {
+                title = "Логика сохранения"
+                repoPrepareCreate("Подготовка объекта для сохранения")
+                repoCreate("Создание в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Получить модель", AICommand.READ) {
@@ -69,6 +80,17 @@ class ModelProcessor(
 
                 finishModelValidation("Завершение проверок")
             }
+
+            chain {
+                title = "Логика чтения"
+                repoRead("Чтение из БД")
+                worker {
+                    title = "Подготовка ответа для Read"
+                    on { state == AIState.RUNNING }
+                    handle { modelRepoDone = modelRepoRead }
+                }
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Изменить модель", AICommand.UPDATE) {
@@ -111,6 +133,15 @@ class ModelProcessor(
 
                 finishModelValidation("Завершение проверок")
             }
+
+            chain {
+                title = "Логика сохранения"
+                repoRead("Чтение из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
+                repoPrepareUpdate("Подготовка объекта для обновления")
+                repoUpdate("Обновление в БД")
+            }
+            prepareResult("Подготовка ответа")
         }
 
         operation("Удалить модель", AICommand.DELETE) {
@@ -136,6 +167,15 @@ class ModelProcessor(
 
                 finishModelValidation("Завершение проверок")
             }
+
+            chain {
+                title = "Логика удаления"
+                repoRead("Чтение из БД")
+                repoPrepareDelete("Подготовка объекта для удаления")
+                repoDelete("Удаление из БД")
+            }
+            prepareResult("Подготовка ответа")
+
         }
 
         operation("Поиск моделей", AICommand.SEARCH) {
@@ -155,6 +195,9 @@ class ModelProcessor(
                 validateSearchStringLength("Валидация длины строки поиска в фильтре")
                 finishModelFilterValidation("Завершение проверок")
             }
+
+            repoSearch("Поиск в БД по фильтру")
+            prepareResult("Подготовка ответа")
         }
 
         operation("Обучить модель", AICommand.TRAIN) {
