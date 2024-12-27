@@ -124,26 +124,26 @@ private fun AIModelPermissionClient.toTransportModel() = when (this) {
     AIModelPermissionClient.DELETE -> ModelPermissions.DELETE
 }
 
-private fun AIVisibility.toTransportModel(): ModelVisibility? = when (this) {
+internal fun AIVisibility.toTransportModel(): ModelVisibility? = when (this) {
     AIVisibility.VISIBLE_PUBLIC -> ModelVisibility.PUBLIC
     AIVisibility.VISIBLE_TO_GROUP -> ModelVisibility.REGISTERED_ONLY
     AIVisibility.VISIBLE_TO_OWNER -> ModelVisibility.OWNER_ONLY
     AIVisibility.NONE -> null
 }
 
-private fun List<AIError>.toTransportErrors(): List<Error>? = this
+internal fun List<AIError>.toTransportErrors(): List<Error>? = this
     .map { it.toTransportModel() }
     .toList()
     .takeIf { it.isNotEmpty() }
 
-private fun AIError.toTransportModel() = Error(
+internal fun AIError.toTransportModel() = Error(
     code = code.takeIf { it.isNotBlank() },
     group = group.takeIf { it.isNotBlank() },
     field = field.takeIf { it.isNotBlank() },
     message = message.takeIf { it.isNotBlank() },
 )
 
-private fun AIState.toResult(): ResponseResult? = when (this) {
+internal fun AIState.toResult(): ResponseResult? = when (this) {
     AIState.RUNNING -> ResponseResult.SUCCESS
     AIState.FAILING -> ResponseResult.ERROR
     AIState.FINISHING -> ResponseResult.SUCCESS

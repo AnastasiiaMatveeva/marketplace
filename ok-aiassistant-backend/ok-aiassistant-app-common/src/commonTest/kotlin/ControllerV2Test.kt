@@ -51,7 +51,7 @@ class ControllerV2Test {
         override val processor: ModelProcessor = ModelProcessor(corSettings)
     }
 
-    private suspend fun createAdSpring(request: ModelCreateRequest): ModelCreateResponse =
+    private suspend fun createModelSpring(request: ModelCreateRequest): ModelCreateResponse =
         appSettings.controllerHelper(
             { fromTransport(request) },
             { toTransportModel() as ModelCreateResponse },
@@ -69,7 +69,7 @@ class ControllerV2Test {
         }
     }
 
-    private suspend fun TestApplicationCall.createAdKtor(appSettings: IAppSettings) {
+    private suspend fun TestApplicationCall.createModelKtor(appSettings: IAppSettings) {
         val resp = appSettings.controllerHelper(
             { fromTransport(receive<ModelCreateRequest>()) },
             { toTransportModel() },
@@ -81,13 +81,13 @@ class ControllerV2Test {
 
     @Test
     fun springHelperTest() = runTest {
-        val res = createAdSpring(request)
+        val res = createModelSpring(request)
         assertEquals(ResponseResult.SUCCESS, res.result)
     }
 
     @Test
     fun ktorHelperTest() = runTest {
-        val testApp = TestApplicationCall(request).apply { createAdKtor(appSettings) }
+        val testApp = TestApplicationCall(request).apply { createModelKtor(appSettings) }
         val res = testApp.res as ModelCreateResponse
         assertEquals(ResponseResult.SUCCESS, res.result)
     }

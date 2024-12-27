@@ -20,7 +20,7 @@ openApiGenerate {
     apiPackage.set("$openapiGroup.api")
     modelPackage.set("$openapiGroup.models")
     invokerPackage.set("$openapiGroup.invoker")
-//    inputSpec.set("$specDir/specs-ad-v1.yaml")
+//    inputSpec.set("$specDir/specs-model-v1.yaml")
     inputSpec.set(rootProject.ext["spec-v1"] as String)
 
     /**

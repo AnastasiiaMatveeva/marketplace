@@ -18,9 +18,15 @@ fun Throwable.asError(
 )
 
 inline fun AppContext.addError(vararg error: AIError) = errors.addAll(error)
+inline fun AppContext.addErrors(error: Collection<AIError>) = errors.addAll(error)
 
 inline fun AppContext.fail(error: AIError) {
     addError(error)
+    state = AIState.FAILING
+}
+
+inline fun AppContext.fail(errors: Collection<AIError>) {
+    addErrors(errors)
     state = AIState.FAILING
 }
 
@@ -40,3 +46,16 @@ inline fun errorValidation(
     message = "Validation error for field $field: $description",
     level = level,
     )
+
+inline fun errorSystem(
+    violationCode: String,
+    level: LogLevel = LogLevel.ERROR,
+    e: Throwable,
+) = AIError(
+    code = "system-$violationCode",
+    group = "system",
+    message = "System error occurred. Our stuff has been informed, please retry later",
+    level = level,
+    exception = e,
+)
+
