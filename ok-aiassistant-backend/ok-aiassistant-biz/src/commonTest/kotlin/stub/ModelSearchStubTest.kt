@@ -17,7 +17,7 @@ class ModelSearchStubTest {
     val filter = AIModelFilter(searchString = "EngineModeling")
 
     @Test
-    fun read() = runTest {
+    fun search() = runTest {
 
         val ctx = AppContext(
             command = AICommand.SEARCH,

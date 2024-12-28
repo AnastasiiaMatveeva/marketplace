@@ -104,7 +104,7 @@ private fun ParamBounds.toTransportBounds(): Bounds = Bounds(
     max = max.takeIf { !it.isNaN() } ?: Double.NaN
 )
 
-private fun AIParamType.toTransportModel(): ModelParamType? = when (this) {
+internal fun AIParamType.toTransportModel(): ModelParamType? = when (this) {
     AIParamType.DISCRETE -> ModelParamType.DISCRETE
     AIParamType.CONTINUOUS -> ModelParamType.CONTINUOUS
     AIParamType.NONE -> null
@@ -118,10 +118,10 @@ private fun Set<AIModelPermissionClient>.toTransportModel(): Set<ModelPermission
 private fun AIModelPermissionClient.toTransportModel() = when (this) {
     AIModelPermissionClient.READ -> ModelPermissions.READ
     AIModelPermissionClient.UPDATE -> ModelPermissions.UPDATE
-    AIModelPermissionClient.MAKE_VISIBLE_OWNER -> ModelPermissions.MAKE_VISIBLE_OWN
-    AIModelPermissionClient.MAKE_VISIBLE_GROUP -> ModelPermissions.MAKE_VISIBLE_GROUP
-    AIModelPermissionClient.MAKE_VISIBLE_PUBLIC -> ModelPermissions.MAKE_VISIBLE_PUBLIC
     AIModelPermissionClient.DELETE -> ModelPermissions.DELETE
+    AIModelPermissionClient.MAKE_VISIBLE_PUBLIC -> ModelPermissions.MAKE_VISIBLE_PUBLIC
+    AIModelPermissionClient.MAKE_VISIBLE_GROUP -> ModelPermissions.MAKE_VISIBLE_GROUP
+    AIModelPermissionClient.MAKE_VISIBLE_OWNER -> ModelPermissions.MAKE_VISIBLE_OWN
 }
 
 internal fun AIVisibility.toTransportModel(): ModelVisibility? = when (this) {

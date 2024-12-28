@@ -116,6 +116,7 @@ private fun ModelSearchFilter?.toInternal(): AIModelFilter = AIModelFilter(
 
 private fun ModelTrainObject.toInternal(): AIModel = AIModel(
     id = id.toModelId(),
+    lock = lock.toModelLock()
 )
 
 private fun ModelPredictObject.toInternal(): AIModel = AIModel(

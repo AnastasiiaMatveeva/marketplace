@@ -12,12 +12,15 @@ import ru.otus.otuskotlin.aiassistant.common.repo.DbModelResponseOk
 
 fun ICorChainDsl<AppContext>.repoRead(title: String) = worker {
     this.title = title
-    description = "Чтение объявления из БД"
+    description = "Чтение модели из БД"
     on { state == AIState.RUNNING }
     handle {
         val request = DbModelIdRequest(modelValidated)
         when(val result = modelRepo.readModel(request)) {
-            is DbModelResponseOk -> modelRepoRead = result.data
+            is DbModelResponseOk -> {
+                modelRepoRead = result.data
+                modelRepoRead.features = modelValidated.features
+            }
             is DbModelResponseErr -> fail(result.errors)
             is DbModelResponseErrWithData -> {
                 fail(result.errors)

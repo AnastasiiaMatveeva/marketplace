@@ -19,11 +19,11 @@ class ModelControllerV1Fine(
     suspend fun create(@RequestBody request: ModelCreateRequest): ModelCreateResponse =
         process(appSettings, request = request, this::class, "create")
 
-    @PostMapping()
-    suspend fun test(@RequestBody request: ModelCreateRequest): ModelCreateResponse {
-        println("Helllo")
-        return ModelCreateResponse()
-    }
+//    @PostMapping()
+//    suspend fun test(@RequestBody request: ModelCreateRequest): ModelCreateResponse {
+//        println("Helllo")
+//        return ModelCreateResponse()
+//    }
 
     @PostMapping("read")
     suspend fun read(@RequestBody request: ModelReadRequest): ModelReadResponse =

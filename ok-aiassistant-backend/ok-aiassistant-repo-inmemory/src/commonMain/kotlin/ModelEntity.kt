@@ -16,6 +16,7 @@ data class ModelEntity(
     val visibility: String? = null,
     val permissionsClient: List<String> = emptyList(),
     val lock: String? = null,
+    val status: String? = null,
 ) {
     constructor(model: AIModel) : this(
         id = model.id.asString().takeIf { it.isNotBlank() },
@@ -29,7 +30,8 @@ data class ModelEntity(
         ownerId = model.ownerId.asString().takeIf { it.isNotBlank() },
         visibility = model.visibility.name.takeIf { it.isNotBlank() },
         permissionsClient = model.permissionsClient.map { it.name },
-        lock = model.lock.asString().takeIf { it.isNotBlank() }
+        lock = model.lock.asString().takeIf { it.isNotBlank() },
+        status = model.status.takeIf { it.isNotBlank() },
     )
 
     fun toInternal() = AIModel(
@@ -45,7 +47,8 @@ data class ModelEntity(
         visibility = visibility?.let { AIVisibility.valueOf(it) } ?: AIVisibility.NONE,
         permissionsClient = permissionsClient.map { AIModelPermissionClient.valueOf(it) }.toMutableSet(),
         lock = lock?.let { AIModelLock(it) } ?: AIModelLock.NONE,
-    )
+        status = status ?: "",
+        )
 }
 
 

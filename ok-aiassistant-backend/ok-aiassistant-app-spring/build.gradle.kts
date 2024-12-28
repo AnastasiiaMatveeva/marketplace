@@ -43,7 +43,7 @@ dependencies {
     testImplementation(projects.okAiassistantRepoCommon)
     testImplementation(projects.okAiassistantStubs)
     testImplementation(projects.okAiassistantRepoPostgres)
-
+    implementation(libs.uuid)
 
     // tests
     testImplementation(kotlin("test-junit5"))

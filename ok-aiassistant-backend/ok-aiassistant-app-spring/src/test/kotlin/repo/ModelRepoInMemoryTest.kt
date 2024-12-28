@@ -44,7 +44,6 @@ internal class ModelRepoInMemoryTest : ModelRepoBaseTest() {
             repo = ModelRepoInMemory(randomUuid = { uuidNew }),
             initObjects = ModelStub.prepareSearchList("xxx") + ModelStub.get()
         )
-        println(repo)
         coEvery { testTestRepo.createModel(capture(slotModel)) } coAnswers { repo.createModel(slotModel.captured) }
         coEvery { testTestRepo.readModel(capture(slotId)) } coAnswers { repo.readModel(slotId.captured) }
         coEvery { testTestRepo.updateModel(capture(slotModel)) } coAnswers { repo.updateModel(slotModel.captured) }
@@ -68,9 +67,9 @@ internal class ModelRepoInMemoryTest : ModelRepoBaseTest() {
     @Test
     override fun searchModel() = super.searchModel()
 
-//    @Test
-//    override fun trainModel() = super.trainModel()
-//
-//    @Test
-//    override fun predictModel() = super.predictModel()
+    @Test
+    override fun trainModel() = super.trainModel()
+
+    @Test
+    override fun predictModel() = super.predictModel()
 }

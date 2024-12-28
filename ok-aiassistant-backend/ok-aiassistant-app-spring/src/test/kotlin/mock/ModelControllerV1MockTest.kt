@@ -68,6 +68,20 @@ internal class ModelControllerV1MockTest {
     )
 
     @Test
+    fun trainModel() = testStubModel(
+        "/v1/model/train",
+        ModelTrainRequest(),
+        AppContext(modelResponse = ModelStub.get()).toTransportTrain().copy(responseType = "train")
+    )
+
+    @Test
+    fun predictModel() = testStubModel(
+        "/v1/model/predict",
+        ModelPredictRequest(),
+        AppContext(modelResponse = ModelStub.get()).toTransportPredict().copy(responseType = "predict")
+    )
+
+    @Test
     fun searchModel() = testStubModel(
         "/v1/model/search",
         ModelSearchRequest(),

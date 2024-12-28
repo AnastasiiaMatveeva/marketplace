@@ -25,6 +25,15 @@ val errorEmptyId = DbModelResponseErr(
     )
 )
 
+val errorBadParamValues = DbModelResponseErr(
+    AIError(
+        code = "$ERROR_GROUP_REPO-bad-features",
+        group = ERROR_GROUP_REPO,
+        field = "features",
+        message = "Features has wrong size"
+    )
+)
+
 fun errorRepoConcurrency(
     oldModel: AIModel,
     expectedLock: AIModelLock,

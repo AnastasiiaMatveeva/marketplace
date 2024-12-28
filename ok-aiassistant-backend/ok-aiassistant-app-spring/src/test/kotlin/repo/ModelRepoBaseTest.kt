@@ -26,6 +26,9 @@ internal abstract class ModelRepoBaseTest {
         prepareCtx(ModelStub.prepareResult {
             id = AIModelId(uuidNew)
             lock = AIModelLock(uuidNew)
+            features = emptyArray()
+            ownerId = AIUserId("")
+
         })
             .toTransportCreate()
             .copy(responseType = "create")
@@ -83,8 +86,40 @@ internal abstract class ModelRepoBaseTest {
             .toTransportSearch().copy(responseType = "search")
     )
 
+    @Test
+    open fun trainModel() = testRepoModel(
+        "train",
+        ModelTrainRequest(
+            model = ModelStub.prepareResult {lock = AIModelLock(uuidNew) }.toTransportTrain(),
+            debug = debug,
+        ),
+        prepareCtx(ModelStub.prepareResult {lock = AIModelLock(uuidNew) })
+            .toTransportTrain().copy(responseType = "train")
+
+    )
+
+    @Test
+    open fun predictModel() = testRepoModel(
+        "predict",
+        ModelPredictRequest(
+            model = ModelStub.prepareResult {
+                features = arrayOf(0.1, 0.2)
+                status = "ok"
+            }.toTransportPredict(),
+            debug = debug,
+        ),
+        prepareCtx(ModelStub.prepareResult {
+            features = arrayOf(0.1, 0.2)
+            lock = AIModelLock(uuidNew)
+            results = arrayOf(0.4, 0.5)
+        })
+            .toTransportPredict().copy(responseType = "predict")
+    )
+
+
     private fun prepareCtx(model: AIModel) = AppContext(
         state = AIState.RUNNING,
+//        modelResponse = model
         modelResponse = model.apply {
             // Пока не реализована эта функциональность
             permissionsClient.clear()

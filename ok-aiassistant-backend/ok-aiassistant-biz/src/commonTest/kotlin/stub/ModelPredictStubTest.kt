@@ -23,7 +23,7 @@ class ModelPredictStubTest {
 
 
     @Test
-    fun create() = runTest {
+    fun predict() = runTest {
 
         val ctx = AppContext(
             command = AICommand.PREDICT,

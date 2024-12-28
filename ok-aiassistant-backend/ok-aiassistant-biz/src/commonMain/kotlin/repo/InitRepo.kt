@@ -21,7 +21,6 @@ fun ICorChainDsl<AppContext>.initRepo(title: String) = worker {
             workMode == AIWorkMode.STUB -> corSettings.repoStub
             else -> corSettings.repoProd
         }
-        println("workMode $workMode")
         if (workMode != AIWorkMode.STUB && modelRepo == IRepoModel.NONE) fail(
             errorSystem(
                 violationCode = "dbNotConfigured",

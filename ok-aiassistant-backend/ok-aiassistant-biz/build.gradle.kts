@@ -16,6 +16,8 @@ kotlin {
         }
         commonTest {
             dependencies {
+                implementation(project(":ok-aiassistant-repo-common"))
+                implementation(project(":ok-aiassistant-repo-inmemory"))
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
 

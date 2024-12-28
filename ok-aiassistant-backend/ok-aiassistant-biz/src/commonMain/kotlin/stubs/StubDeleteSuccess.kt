@@ -7,6 +7,7 @@ import ru.otus.otuskotlin.aiassistant.common.CorSettings
 import ru.otus.otuskotlin.aiassistant.stubs.ModelStub
 import AppContext
 import models.AIState
+import models.AIModelId
 import models.AIModelLock
 import stubs.AIStubs
 
@@ -21,7 +22,7 @@ fun ICorChainDsl<AppContext>.stubDeleteSuccess(title: String, corSettings: CorSe
         logger.doWithLogging(id = this.requestId.asString(), LogLevel.DEBUG) {
             state = AIState.FINISHING
             val stub = ModelStub.prepareResult {
-                modelRequest.title.takeIf { it.isNotBlank() }?.also { this.title = it }
+                modelRequest.id.takeIf { it != AIModelId.NONE }?.also { this.id = it }
                 modelRequest.lock.takeIf { it != AIModelLock.NONE }?.also { this.lock = it }
             }
             modelResponse = stub

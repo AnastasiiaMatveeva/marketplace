@@ -111,10 +111,10 @@ private fun Set<AIModelPermissionClient>.toTransportModel(): Set<ModelPermission
 private fun AIModelPermissionClient.toTransportModel() = when (this) {
     AIModelPermissionClient.READ -> ModelPermissions.READ
     AIModelPermissionClient.UPDATE -> ModelPermissions.UPDATE
-    AIModelPermissionClient.MAKE_VISIBLE_OWNER -> ModelPermissions.MAKE_VISIBLE_OWN
-    AIModelPermissionClient.MAKE_VISIBLE_GROUP -> ModelPermissions.MAKE_VISIBLE_GROUP
-    AIModelPermissionClient.MAKE_VISIBLE_PUBLIC -> ModelPermissions.MAKE_VISIBLE_PUBLIC
     AIModelPermissionClient.DELETE -> ModelPermissions.DELETE
+    AIModelPermissionClient.MAKE_VISIBLE_PUBLIC -> ModelPermissions.MAKE_VISIBLE_PUBLIC
+    AIModelPermissionClient.MAKE_VISIBLE_GROUP -> ModelPermissions.MAKE_VISIBLE_GROUP
+    AIModelPermissionClient.MAKE_VISIBLE_OWNER -> ModelPermissions.MAKE_VISIBLE_OWN
 }
 
 private fun AIVisibility.toTransportModel(): ModelVisibility? = when (this) {

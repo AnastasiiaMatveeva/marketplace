@@ -22,7 +22,7 @@ class ModelTrainStubTest {
 
 
     @Test
-    fun create() = runTest {
+    fun train() = runTest {
 
         val ctx = AppContext(
             command = AICommand.TRAIN,

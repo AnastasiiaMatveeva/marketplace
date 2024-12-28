@@ -13,6 +13,8 @@ import ru.otus.otuskotlin.aiassistant.common.repo.IRepoModel
 import ru.otus.otuskotlin.aiassistant.repo.inmemory.ModelRepoInMemory
 import ru.otus.otuskotlin.aiassistant.repo.stubs.ModelRepoStub
 import ru.otus.otuskotlin.aiassistant.repo.postgresql.RepoModelSql
+import ru.otus.otuskotlin.aiassistant.repo.postgresql.SqlProperties
+import com.benasher44.uuid.uuid4
 
 @Suppress("unused")
 @EnableConfigurationProperties(ModelConfigPostgres::class)
@@ -29,9 +31,15 @@ class ModelConfig(val postgresConfig: ModelConfigPostgres)  {
     fun testRepo(): IRepoModel = ModelRepoInMemory()
 
     @Bean
-    fun prodRepo(): IRepoModel = RepoModelSql(postgresConfig.psql).apply {
-        logger.info("Connecting to DB with ${this}")
-    }
+    fun prodRepo(): IRepoModel = RepoModelSql(
+        SqlProperties(
+            host = "localhost",
+            user = "postgres",
+            password = "marketplace-pass",
+            port = 50158,
+        ),
+        randomUuid = { uuid4().toString() }
+    )
 
     @Bean
     fun stubRepo(): IRepoModel = ModelRepoStub()

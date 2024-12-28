@@ -44,8 +44,8 @@ class ModelProcessor(
 
                 validateTitleNotEmpty("Проверка наличия поля title")
                 validateTitleHasContent("Проверка поля title")
-                validateDescriptionNotEmpty("Проверка наличия поля title")
-                validateDescriptionHasContent("Проверка поля title")
+                validateDescriptionNotEmpty("Проверка наличия поля description")
+                validateDescriptionHasContent("Проверка поля description")
 
                 validateParamType("Проверка типа параметра")
                 validateParamBoundsExist("Проверка размера списка paramValues")
@@ -223,6 +223,15 @@ class ModelProcessor(
 
                 finishModelValidation("Завершение проверок")
             }
+
+            chain {
+                title = "Логика обучения"
+                repoRead("Чтение модели из БД")
+                repoPrepareTrain("Обучение модели")
+                repoUpdate("Посылаем обученную модель в БД")
+            }
+
+            prepareResult("Подготовка ответа")
         }
 
         operation("Предсказать при помощи модели", AICommand.PREDICT) {
@@ -236,7 +245,7 @@ class ModelProcessor(
             }
 
             validation {
-                worker("Копируем поля в modelValidating") { modelValidating = modelRequest.deepCopy() }
+                worker("Копируем поля в modelValidating") {modelValidating = modelRequest.deepCopy() }
 
                 worker("Очистка id") { modelValidating.id = AIModelId(modelValidating.id.asString().trim()) }
                 worker("Очистка поля lock") { modelValidating.lock = AIModelLock(modelValidating.lock.asString().trim()) }
@@ -248,10 +257,21 @@ class ModelProcessor(
                 validateLockProperFormat(    "Проверка поля lock")
 
                 validateFeaturesNotEmpty("Проверка наличия массива из входных параметров")
-                validateFeatures("Проверка наличия соответствии размера входного массива с количеством параметров")
 
-                finishModelValidation("Завершение проверок")
+                finishModelValidation("Завершение проверок предикта")
             }
+
+            chain {
+                title = "Логика предсказания"
+                repoRead("Чтение модели из БД")
+                checkLock("Проверяем консистентность по оптимистичной блокировке")
+                checkStatusTrain("Проверяем, что модель обучена")
+                checkFeaturesExist("Проверяем Features")
+                repoPreparePredict("Обучение модели")
+                repoUpdate("Посылаем медель с предсказанием в БД")
+            }
+
+            prepareResult("Подготовка ответа")
         }
     }.build()
 }

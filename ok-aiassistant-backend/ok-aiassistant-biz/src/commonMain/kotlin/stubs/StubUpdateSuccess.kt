@@ -27,6 +27,9 @@ fun ICorChainDsl<AppContext>.stubUpdateSuccess(title: String, corSettings: CorSe
                 modelRequest.title.takeIf { it.isNotBlank() }?.also { this.title = it }
                 modelRequest.description.takeIf { it.isNotBlank() }?.also { this.description = it }
                 modelRequest.visibility.takeIf { it != AIVisibility.NONE }?.also { this.visibility = it }
+                modelRequest.scriptPath.takeIf { it.isNotBlank() }?.also { this.scriptPath = it }
+                modelRequest.solverPath.takeIf { it.isNotBlank() }?.also { this.solverPath = it }
+                modelRequest.modelParams.takeIf { it.isNotEmpty() }?.also { this.modelParams = it }
                 modelRequest.lock.takeIf { it != AIModelLock.NONE }?.also { this.lock = it }
             }
             modelResponse = stub

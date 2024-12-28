@@ -109,7 +109,7 @@ tasks {
         group = taskGroup
         dependsOn(dbContainer)
         targetContainerId(dbContainer.containerId)
-        finalizedBy(stopPg)
+//        finalizedBy(stopPg)
     }
     val inspectPg by creating(DockerInspectContainer::class) {
         group = taskGroup
@@ -130,12 +130,10 @@ tasks {
     }
     val liquibaseUpdate = getByName("update") {
         group = taskGroup
-        dependsOn(inspectPg)
-        finalizedBy(stopPg)
+//        dependsOn(inspectPg)
+//        finalizedBy(stopPg)
         doFirst {
-            println("waiting for a while ${System.currentTimeMillis()/1000000}")
             Thread.sleep(30000)
-            println("LQB: \"jdbc:postgresql://localhost:$pgPort/$pgDbName\" ${System.currentTimeMillis()/1000000}")
             liquibase {
                 activities {
                     register("main") {
@@ -143,7 +141,7 @@ tasks {
                             "logLevel" to "info",
                             "searchPath" to layout.projectDirectory.dir("migrations").asFile.toString(),
                             "changelogFile" to "changelog-v0.0.1.sql",
-                            "url" to "jdbc:postgresql://localhost:$pgPort/$pgDbName",
+                            "url" to "jdbc:postgresql://localhost:50158/$pgDbName",
                             "username" to pgUsername,
                             "password" to pgPassword,
                             "driver" to "org.postgresql.Driver"

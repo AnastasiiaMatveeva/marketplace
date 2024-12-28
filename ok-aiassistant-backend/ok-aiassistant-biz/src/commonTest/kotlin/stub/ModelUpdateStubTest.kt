@@ -21,7 +21,7 @@ class ModelUpdateStubTest {
     val position = 5
 
     @Test
-    fun create() = runTest {
+    fun update() = runTest {
 
         val ctx = AppContext(
             command = AICommand.UPDATE,
@@ -49,6 +49,7 @@ class ModelUpdateStubTest {
             )
         )
         processor.exec(ctx)
+        println(scriptPath)
         assertEquals(description, ctx.modelResponse.description)
         assertEquals(scriptPath, ctx.modelResponse.scriptPath)
         assertEquals(solverPath, ctx.modelResponse.solverPath)

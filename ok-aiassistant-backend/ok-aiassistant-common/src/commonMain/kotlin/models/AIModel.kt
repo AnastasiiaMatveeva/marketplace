@@ -13,6 +13,8 @@ data class AIModel(
     var visibility: AIVisibility = AIVisibility.NONE,
     val permissionsClient: MutableSet<AIModelPermissionClient> = mutableSetOf(),
     var lock: AIModelLock = AIModelLock.NONE,
+    var status: String = "",
+    var duration: Double = -1.0,
 
 ) {
     fun isEmpty() = this == NONE
@@ -20,8 +22,9 @@ data class AIModel(
     companion object {
         private val NONE = AIModel()
     }
-
-    fun deepCopy(): AIModel = copy()
+    fun deepCopy(): AIModel = copy(
+        permissionsClient = permissionsClient.toMutableSet(),
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -37,7 +40,7 @@ data class AIModel(
                 results.contentEquals(other.results) &&
                 ownerId == other.ownerId &&
                 visibility == other.visibility &&
-                permissionsClient == other.permissionsClient &&
+                permissionsClient.toSet() == other.permissionsClient.toSet() &&
                 lock == other.lock
     }
 

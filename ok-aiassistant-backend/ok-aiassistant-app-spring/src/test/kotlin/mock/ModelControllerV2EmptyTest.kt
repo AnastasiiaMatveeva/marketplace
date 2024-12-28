@@ -54,6 +54,20 @@ internal class ModelControllerV2EmptyTest {
     )
 
     @Test
+    fun trainModel() = testStubModel(
+        "/v2/model/train",
+        ModelTrainRequest(),
+        AppContext().toTransportTrain()
+    )
+
+    @Test
+    fun predictModel() = testStubModel(
+        "/v2/model/predict",
+        ModelPredictRequest(),
+        AppContext().toTransportPredict()
+    )
+
+    @Test
     fun searchModel() = testStubModel(
         "/v2/model/search",
         ModelSearchRequest(),

@@ -8,7 +8,9 @@ import ru.otus.otuskotlin.aiassistant.common.helpers.errorValidation
 
 fun ICorChainDsl<AppContext>.validateLockNotEmpty(title: String) = worker {
     this.title = title
-    on { modelValidating.lock.asString().isEmpty() }
+    on {
+        modelValidating.lock.asString().isEmpty()
+    }
     handle {
         fail(
             errorValidation(

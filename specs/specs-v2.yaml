@@ -382,7 +382,7 @@ components:
         - $ref: '#/components/schemas/ModelRequestDebug'
         - type: object
           properties:
-            ModelFilter:
+            modelFilter:
               $ref: '#/components/schemas/ModelSearchFilter'
 
     ModelTrainObject:
@@ -391,6 +391,8 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/ModelId'
+            lock:
+              $ref: '#/components/schemas/ModelLock'
 
     ModelTrainRequest:
       allOf:
@@ -407,6 +409,8 @@ components:
           properties:
             id:
               $ref: '#/components/schemas/ModelId'
+            lock:
+              $ref: '#/components/schemas/ModelLock'
             features:
               type: array
               items:
